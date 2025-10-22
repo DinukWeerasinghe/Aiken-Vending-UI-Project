@@ -9,14 +9,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aiken.vendingmachine.ui.screens.CartScreen
 import com.aiken.vendingmachine.ui.screens.CheckoutScreen
-import com.aiken.vendingmachine.ui.screens.HomeScreen
 import com.aiken.vendingmachine.ui.screens.IdleScreen
 import com.aiken.vendingmachine.ui.screens.ProcessingScreen
-import com.aiken.vendingmachine.ui.screens.ProductDetailScreen
 import com.aiken.vendingmachine.ui.screens.SuccessScreen
 import com.aiken.vendingmachine.ui.viewmodel.VendingViewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
+import com.aiken.vendingmachine.ui.screens.BiscuitProductDetailScreen
+import com.aiken.vendingmachine.ui.screens.MalibanHomeScreen
 
 @Preview
 @Composable
@@ -31,7 +31,7 @@ fun VendingMachineNavHost(
         modifier = modifier
     ) {
         composable(Screen.Home.route) {
-            HomeScreen(
+            MalibanHomeScreen(
                 onProductClick = { product ->
                     viewModel.selectProduct(product)
                     navController.navigate(Screen.ProductDetail.route)
@@ -45,7 +45,7 @@ fun VendingMachineNavHost(
 
         composable(Screen.ProductDetail.route) {
             viewModel.uiState.collectAsState().value.selectedProduct?.let { product ->
-                ProductDetailScreen(
+                BiscuitProductDetailScreen(
                     product = product,
                     onClose = { navController.popBackStack() },
                     onAddToCart = { product, quantity ->
@@ -57,7 +57,6 @@ fun VendingMachineNavHost(
                 )
             }
         }
-
         composable(Screen.Cart.route) {
             CartScreen(
                 onContinueShopping = { navController.popBackStack() },

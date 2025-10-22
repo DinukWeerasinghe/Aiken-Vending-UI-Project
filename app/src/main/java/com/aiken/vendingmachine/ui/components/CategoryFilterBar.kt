@@ -43,9 +43,15 @@ fun CategoryFilterBar(
                     Text(
                         text = when (category) {
                             ProductCategory.ALL -> "All"
-                            ProductCategory.DRINKS -> "Drinks"
-                            ProductCategory.SNACKS -> "Snacks"
-                            ProductCategory.HEALTHY -> "Healthy"
+                            //ProductCategory.DRINKS -> "Drinks"
+                            //ProductCategory.SNACKS -> "Snacks"
+                            //ProductCategory.HEALTHY -> "Healthy"
+                            ProductCategory.CREAM_BISCUITS -> TODO()
+                            ProductCategory.GLUCOSE -> TODO()
+                            ProductCategory.COOKIES -> TODO()
+                            ProductCategory.CRACKERS -> TODO()
+                            ProductCategory.WAFERS -> TODO()
+                            ProductCategory.CHOCOLATE -> TODO()
                         },
                         style = MaterialTheme.typography.labelLarge
                     )
@@ -54,9 +60,15 @@ fun CategoryFilterBar(
                     Icon(
                         imageVector = when (category) {
                             ProductCategory.ALL -> Icons.Default.AllInclusive
-                            ProductCategory.DRINKS -> Icons.Default.LocalCafe
-                            ProductCategory.SNACKS -> Icons.Default.LocalDining
-                            ProductCategory.HEALTHY -> Icons.Default.Nature
+                            //ProductCategory.DRINKS -> Icons.Default.LocalCafe
+                            //ProductCategory.SNACKS -> Icons.Default.LocalDining
+                            //ProductCategory.HEALTHY -> Icons.Default.Nature
+                            ProductCategory.CREAM_BISCUITS -> TODO()
+                            ProductCategory.GLUCOSE -> TODO()
+                            ProductCategory.COOKIES -> TODO()
+                            ProductCategory.CRACKERS -> TODO()
+                            ProductCategory.WAFERS -> TODO()
+                            ProductCategory.CHOCOLATE -> TODO()
                         },
                         contentDescription = null,
                         modifier = Modifier.size(FilterChipDefaults.IconSize)

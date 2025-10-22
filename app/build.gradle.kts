@@ -29,6 +29,18 @@ android {
             )
         }
     }
+    // Add this to include large files in assets
+    aaptOptions {
+        noCompress.add("mp4")
+        noCompress.add("avi")
+        noCompress.add("mkv")
+    }
+
+    sourceSets {
+        getByName("main") {
+            assets.srcDirs("src/main/assets")
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -51,6 +63,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.media3.exoplayer)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +78,14 @@ dependencies {
 
     // Navigation for Compose
     implementation(libs.androidx.navigation.compose) // or latest stable
+    // ExoPlayer for video playback
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1")
+
+    // For HTTP video streaming
+    implementation("com.google.android.exoplayer:extension-okhttp:2.19.1")
 
 
 }

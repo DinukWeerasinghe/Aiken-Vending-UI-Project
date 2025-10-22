@@ -95,15 +95,15 @@ fun ProductCard(
                     },
                     colors = AssistChipDefaults.assistChipColors(
                         containerColor = when (product.category) {
-                            ProductCategory.DRINKS -> DrinksColor.copy(alpha = 0.1f)
-                            ProductCategory.SNACKS -> SnacksColor.copy(alpha = 0.1f)
-                            ProductCategory.HEALTHY -> HealthyColor.copy(alpha = 0.1f)
+                            //ProductCategory.DRINKS -> DrinksColor.copy(alpha = 0.1f)
+                            //ProductCategory.SNACKS -> SnacksColor.copy(alpha = 0.1f)
+                            //ProductCategory.HEALTHY -> HealthyColor.copy(alpha = 0.1f)
                             else -> MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
                         },
                         labelColor = when (product.category) {
-                            ProductCategory.DRINKS -> DrinksColor
-                            ProductCategory.SNACKS -> SnacksColor
-                            ProductCategory.HEALTHY -> HealthyColor
+                            //ProductCategory.DRINKS -> DrinksColor
+                            //ProductCategory.SNACKS -> SnacksColor
+                            //ProductCategory.HEALTHY -> HealthyColor
                             else -> MaterialTheme.colorScheme.primary
                         }
                     ),
