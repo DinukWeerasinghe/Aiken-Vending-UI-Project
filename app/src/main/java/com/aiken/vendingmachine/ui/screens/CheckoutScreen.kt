@@ -27,8 +27,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aiken.vendingmachine.data.model.PaymentMethod
+import com.aiken.vendingmachine.data.model.Product
+import com.aiken.vendingmachine.data.model.ProductCategory
+import com.aiken.vendingmachine.data.model.CartItem
+import com.aiken.vendingmachine.data.model.NutritionInfo
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 import com.aiken.vendingmachine.ui.viewmodel.VendingViewModel
 import androidx.compose.runtime.collectAsState
 
@@ -36,7 +43,7 @@ import androidx.compose.runtime.collectAsState
 fun CheckoutScreen(
     onCancel: () -> Unit,
     onConfirmPayment: (PaymentMethod) -> Unit,
-    viewModel: VendingViewModel
+    viewModel: VendingViewModel = viewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState().value
 
@@ -206,4 +213,136 @@ fun PaymentMethodCard(
             )
         }
     }
+}
+
+// Preview Functions
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun CheckoutScreenPreview() {
+    VendingMachineTheme {
+        CheckoutScreen(
+            onCancel = { },
+            onConfirmPayment = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun CheckoutScreenWithItemsPreview() {
+    VendingMachineTheme {
+        CheckoutScreen(
+            onCancel = { },
+            onConfirmPayment = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, widthDp = 400, heightDp = 800)
+@Composable
+private fun CheckoutScreenTabletPreview() {
+    VendingMachineTheme {
+        CheckoutScreen(
+            onCancel = { },
+            onConfirmPayment = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, widthDp = 320, heightDp = 640)
+@Composable
+private fun CheckoutScreenMobilePreview() {
+    VendingMachineTheme {
+        CheckoutScreen(
+            onCancel = { },
+            onConfirmPayment = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PaymentMethodCardSelectedPreview() {
+    VendingMachineTheme {
+        PaymentMethodCard(
+            method = PaymentMethod.CARD,
+            isSelected = true,
+            onClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PaymentMethodCardUnselectedPreview() {
+    VendingMachineTheme {
+        PaymentMethodCard(
+            method = PaymentMethod.CASH,
+            isSelected = false,
+            onClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PaymentMethodCardAllMethodsPreview() {
+    VendingMachineTheme {
+        Column {
+            PaymentMethod.values().forEach { method ->
+                PaymentMethodCard(
+                    method = method,
+                    isSelected = false,
+                    onClick = { }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
+    }
+}
+
+// Helper function to create mock cart items for testing
+private fun createMockCartItems(): List<CartItem> {
+    val product1 = Product(
+        id = 1,
+        name = "Chocolate Chip Cookies",
+        description = "Delicious chocolate chip cookies",
+        price = 2.50,
+        category = ProductCategory.COOKIES,
+        imageUrl = "https://example.com/cookies.jpg",
+        stockLevel = 15,
+        shelfPosition = "A1",
+        nutritionInfo = NutritionInfo(
+            calories = 150,
+            ingredients = "Flour, Chocolate, Sugar"
+        ),
+        weight = "150g",
+        tags = listOf("cookies", "chocolate"),
+        isAvailable = true,
+        brand = "Maliban"
+    )
+
+    val product2 = Product(
+        id = 2,
+        name = "Cream Biscuits",
+        description = "Soft cream filled biscuits",
+        price = 1.75,
+        category = ProductCategory.CREAM_BISCUITS,
+        imageUrl = "https://example.com/cream-biscuits.jpg",
+        stockLevel = 8,
+        shelfPosition = "B2",
+        nutritionInfo = NutritionInfo(
+            calories = 120,
+            ingredients = "Flour, Cream, Sugar"
+        ),
+        weight = "200g",
+        tags = listOf("biscuits", "cream"),
+        isAvailable = true,
+        brand = "Maliban"
+    )
+
+    return listOf(
+        CartItem(product1, 2),
+        CartItem(product2, 1)
+    )
 }
