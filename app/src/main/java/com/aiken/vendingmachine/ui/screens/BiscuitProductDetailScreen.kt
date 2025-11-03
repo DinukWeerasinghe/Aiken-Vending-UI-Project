@@ -34,15 +34,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import com.aiken.vendingmachine.data.model.Product
+import com.aiken.vendingmachine.data.model.ProductCategory
+import com.aiken.vendingmachine.data.model.NutritionInfo
 import com.aiken.vendingmachine.ui.components.NutritionBadge
 import com.aiken.vendingmachine.ui.components.QuantitySelector
 import com.aiken.vendingmachine.ui.components.StockIndicator
 import com.aiken.vendingmachine.ui.theme.Primary
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 
 @Composable
 fun BiscuitProductDetailScreen(
@@ -51,8 +55,7 @@ fun BiscuitProductDetailScreen(
     onAddToCart: (Product, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var quantity by remember { mutableIntStateOf(1)
-    }
+    var quantity by remember { mutableIntStateOf(1) }
 
     Dialog(
         onDismissRequest = onClose,
@@ -290,4 +293,66 @@ fun ProductInfoCard(
             )
         }
     }
+}
+
+// Preview Functions
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun BiscuitProductDetailScreenPreview() {
+    VendingMachineTheme {
+        BiscuitProductDetailScreen(
+            product = createMockProduct(),
+            onClose = {},
+            onAddToCart = { _, _ -> }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun BiscuitProductDetailScreenOutOfStockPreview() {
+    VendingMachineTheme {
+        BiscuitProductDetailScreen(
+            product = createMockProduct(stockLevel = 0),
+            onClose = {},
+            onAddToCart = { _, _ -> }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductInfoCardPreview() {
+    VendingMachineTheme {
+        ProductInfoCard(
+            title = "Ingredients",
+            content = "Flour, Chocolate Chips, Butter, Eggs, Vanilla Extract, Baking Soda, Salt"
+        )
+    }
+}
+
+// Helper function to create mock product for previews
+private fun createMockProduct(
+    id: Int = 6,
+    stockLevel: Int = 15,
+    isAvailable: Boolean = true
+): Product {
+    return Product(
+        id = id,
+        name = "Chocolate Chip Cookies",
+        description = "Buttery cookies with real chocolate chips",
+        price = 2.00,
+        category = ProductCategory.COOKIES,
+        imageUrl = "https://www.malibangroup.com/images/products/chocolate-chip.jpg",
+        stockLevel = stockLevel,
+        shelfPosition = "C1",
+        nutritionInfo = NutritionInfo(
+            calories = 510,
+            ingredients = "Wheat Flour, Chocolate Chips, Butter, Sugar, Eggs"
+        ),
+        weight = "150g",
+        tags = listOf("cookies", "chocolate-chip", "buttery"),
+        isAvailable = isAvailable,
+        brand = "Maliban"
+    )
 }

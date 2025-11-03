@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -22,16 +23,23 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.aiken.vendingmachine.data.MockData
+import com.aiken.vendingmachine.data.model.CartItem
+import com.aiken.vendingmachine.data.model.Product
+import com.aiken.vendingmachine.data.model.ProductCategory
 import com.aiken.vendingmachine.ui.components.EmptyCartState
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 import com.aiken.vendingmachine.ui.viewmodel.VendingViewModel
-import androidx.compose.runtime.collectAsState
 
 @Composable
 fun CartScreen(
@@ -93,8 +101,15 @@ fun CartScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Subtotal")
-                        Text("$${String.format("%.2f", uiState.totalPrice)}")
+                        Text(
+                            text = "Subtotal",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            text = "$${String.format("%.2f", uiState.totalPrice)}",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -127,7 +142,7 @@ fun CartScreen(
 
 @Composable
 fun CartItemRow(
-    cartItem: com.aiken.vendingmachine.data.model.CartItem,
+    cartItem: CartItem,
     onIncreaseQuantity: () -> Unit,
     onDecreaseQuantity: () -> Unit,
     onRemove: () -> Unit,
@@ -142,6 +157,7 @@ fun CartItemRow(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
+            // Product Image
             AsyncImage(
                 model = cartItem.product.imageUrl,
                 contentDescription = cartItem.product.name,
@@ -151,12 +167,11 @@ fun CartItemRow(
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.width(16.dp))
 
+            // Product Details
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = cartItem.product.name,
@@ -164,11 +179,15 @@ fun CartItemRow(
                     fontWeight = FontWeight.Bold
                 )
 
+                Spacer(modifier = Modifier.height(4.dp))
+
                 Text(
                     text = "$${cartItem.product.price} each",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
+
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = "Total: $${String.format("%.2f", cartItem.product.price * cartItem.quantity)}",
@@ -178,52 +197,119 @@ fun CartItemRow(
                 )
             }
 
+            Spacer(modifier = Modifier.width(8.dp))
+
             // Quantity controls
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                IconButton(
-                    onClick = onDecreaseQuantity,
-                    modifier = Modifier.size(40.dp)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Remove,
-                        contentDescription = "Decrease"
+                    IconButton(
+                        onClick = onDecreaseQuantity,
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Remove,
+                            contentDescription = "Decrease",
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+
+                    Text(
+                        text = cartItem.quantity.toString(),
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 8.dp)
                     )
+
+                    IconButton(
+                        onClick = onIncreaseQuantity,
+                        enabled = cartItem.quantity < cartItem.product.stockLevel,
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Increase",
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
                 }
 
-                Text(
-                    text = cartItem.quantity.toString(),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-
+                // Remove button
                 IconButton(
-                    onClick = onIncreaseQuantity,
-                    enabled = cartItem.quantity < cartItem.product.stockLevel,
-                    modifier = Modifier.size(40.dp)
+                    onClick = onRemove,
+                    modifier = Modifier.size(32.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Increase"
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Remove",
+                        tint = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }
+        }
+    }
+}
 
-            Spacer(modifier = Modifier.height(8.dp))
+// Preview Functions
+@Preview(showBackground = true)
+@Composable
+private fun CartItemRowPreview() {
+    VendingMachineTheme {
+        CartItemRow(
+            cartItem = CartItem(
+                product = MockData.products[5], // Chocolate Chip Cookies
+                quantity = 2
+            ),
+            onIncreaseQuantity = {},
+            onDecreaseQuantity = {},
+            onRemove = {}
+        )
+    }
+}
 
-            // Remove button
-            IconButton(
-                onClick = onRemove,
-                modifier = Modifier.size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Remove",
-                    tint = MaterialTheme.colorScheme.error
-                )
-            }
+@Preview(showBackground = true)
+@Composable
+private fun CartItemRowMaxQuantityPreview() {
+    VendingMachineTheme {
+        CartItemRow(
+            cartItem = CartItem(
+                product = MockData.products[5].copy(stockLevel = 3),
+                quantity = 3
+            ),
+            onIncreaseQuantity = {},
+            onDecreaseQuantity = {},
+            onRemove = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun CartScreenEmptyPreview() {
+    VendingMachineTheme {
+        // For empty cart preview, you'll need to create a mock ViewModel
+        // or use a simpler preview showing the EmptyCartState directly
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Your Cart",
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            EmptyCartState(
+                onStartShopping = {},
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }

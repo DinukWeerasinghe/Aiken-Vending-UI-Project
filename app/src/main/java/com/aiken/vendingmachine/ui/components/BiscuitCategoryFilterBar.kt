@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cake
 import androidx.compose.material.icons.filled.Cookie
@@ -22,9 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aiken.vendingmachine.data.model.ProductCategory
-import com.aiken.vendingmachine.ui.theme.*
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 
 @Composable
 fun BiscuitCategoryFilterBar(
@@ -78,5 +79,105 @@ fun BiscuitCategoryFilterBar(
                 )
             )
         }
+    }
+}
+
+// Preview Functions
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarAllSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.ALL,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarCreamSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.CREAM_BISCUITS,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarGlucoseSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.GLUCOSE,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarCookiesSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.COOKIES,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarCrackersSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.CRACKERS,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarWafersSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.WAFERS,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitCategoryFilterBarChocolateSelectedPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.CHOCOLATE,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 480)
+@Composable
+private fun BiscuitCategoryFilterBarTabletPreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.ALL,
+            onCategorySelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+private fun BiscuitCategoryFilterBarMobilePreview() {
+    VendingMachineTheme {
+        BiscuitCategoryFilterBar(
+            selectedCategory = ProductCategory.COOKIES,
+            onCategorySelected = { }
+        )
     }
 }

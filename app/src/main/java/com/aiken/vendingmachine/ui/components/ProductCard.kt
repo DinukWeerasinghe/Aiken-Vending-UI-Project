@@ -46,13 +46,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.aiken.vendingmachine.data.model.Product
 import com.aiken.vendingmachine.data.model.ProductCategory
-import com.aiken.vendingmachine.ui.theme.DrinksColor
-import com.aiken.vendingmachine.ui.theme.HealthyColor
-import com.aiken.vendingmachine.ui.theme.SnacksColor
+import com.aiken.vendingmachine.data.model.PromoSlide
+import com.aiken.vendingmachine.data.model.PromoType
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 import kotlinx.coroutines.delay
 import kotlin.math.absoluteValue
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductCard(
     product: Product,
@@ -171,7 +171,7 @@ fun ProductCard(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TopCarouselSection(
-    promoSlides: List<com.aiken.vendingmachine.data.model.PromoSlide>,
+    promoSlides: List<PromoSlide>,
     currentSlideIndex: Int,
     onSlideChange: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -237,7 +237,6 @@ fun TopCarouselSection(
                         )
                 )
 
-
                 // Content
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -249,7 +248,7 @@ fun TopCarouselSection(
                     Text(
                         text = slide.title,
                         style = MaterialTheme.typography.displayMedium,
-                        color = androidx.compose.ui.graphics.Color.White,
+                        color = Color.White,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
                     )
 
@@ -258,7 +257,7 @@ fun TopCarouselSection(
                     Text(
                         text = slide.subtitle,
                         style = MaterialTheme.typography.headlineMedium,
-                        color = androidx.compose.ui.graphics.Color.White,
+                        color = Color.White,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
                     )
                 }
@@ -276,7 +275,7 @@ fun TopCarouselSection(
             Icon(
                 imageVector = if (isMuted) Icons.Default.VolumeOff else Icons.Default.VolumeUp,
                 contentDescription = if (isMuted) "Unmute" else "Mute",
-                tint = androidx.compose.ui.graphics.Color.White,
+                tint = Color.White,
                 modifier = Modifier.size(24.dp)
             )
         }
@@ -290,9 +289,9 @@ fun TopCarouselSection(
         ) {
             repeat(promoSlides.size) { iteration ->
                 val color = if (pagerState.currentPage == iteration) {
-                    androidx.compose.ui.graphics.Color.White
+                    Color.White
                 } else {
-                    androidx.compose.ui.graphics.Color.White.copy(alpha = 0.5f)
+                    Color.White.copy(alpha = 0.5f)
                 }
                 androidx.compose.foundation.layout.Box(
                     modifier = Modifier
@@ -304,4 +303,156 @@ fun TopCarouselSection(
             }
         }
     }
+}
+
+// Preview Functions for ProductCard
+@Preview(showBackground = true)
+@Composable
+private fun ProductCardInStockPreview() {
+    VendingMachineTheme {
+        ProductCard(
+            product = createMockProduct(),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductCardOutOfStockPreview() {
+    VendingMachineTheme {
+        ProductCard(
+            product = createMockProduct(stockLevel = 0, isAvailable = false),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductCardCookiesPreview() {
+    VendingMachineTheme {
+        ProductCard(
+            product = createMockProduct(
+                name = "Chocolate Chip Cookies",
+                category = ProductCategory.COOKIES,
+                price = 2.50
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductCardCreamBiscuitsPreview() {
+    VendingMachineTheme {
+        ProductCard(
+            product = createMockProduct(
+                name = "Vanilla Cream Biscuits",
+                category = ProductCategory.CREAM_BISCUITS,
+                price = 1.75
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+// Preview Functions for TopCarouselSection
+@Preview(showBackground = true, widthDp = 400, heightDp = 200)
+@Composable
+private fun TopCarouselSectionPreview() {
+    VendingMachineTheme {
+        TopCarouselSection(
+            promoSlides = listOf(
+                PromoSlide(
+                    id = 1,
+                    title = "New Arrivals",
+                    subtitle = "Discover our latest biscuits",
+                    imageUrl = "https://example.com/promo1.jpg",
+                    type = PromoType.IMAGE,
+                    backgroundColor = Color(0xFF4CAF50)
+                ),
+                PromoSlide(
+                    id = 2,
+                    title = "Special Offer",
+                    subtitle = "20% off all cookies",
+                    imageUrl = "https://example.com/promo2.jpg",
+                    type = PromoType.IMAGE,
+                    backgroundColor = Color(0xFF2196F3)
+                ),
+                PromoSlide(
+                    id = 3,
+                    title = "Limited Edition",
+                    subtitle = "Try our new chocolate range",
+                    imageUrl = "https://example.com/promo3.jpg",
+                    type = PromoType.IMAGE,
+                    backgroundColor = Color(0xFF9C27B0)
+                )
+            ),
+            currentSlideIndex = 0,
+            onSlideChange = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 400, heightDp = 200)
+@Composable
+private fun TopCarouselSectionSingleSlidePreview() {
+    VendingMachineTheme {
+        TopCarouselSection(
+            promoSlides = listOf(
+                PromoSlide(
+                    id = 1,
+                    title = "Maliban Premium",
+                    subtitle = "Quality since 1954",
+                    imageUrl = "https://example.com/maliban-premium.jpg",
+                    type = PromoType.IMAGE,
+                    backgroundColor = Color(0xFFF57C00)
+                )
+            ),
+            currentSlideIndex = 0,
+            onSlideChange = { }
+        )
+    }
+}
+
+// Helper function to create mock product for previews
+private fun createMockProduct(
+    id: Int = 1,
+    name: String = "Glucose Biscuits",
+    description: String = "Classic glucose biscuits for energy",
+    price: Double = 1.50,
+    category: ProductCategory = ProductCategory.GLUCOSE,
+    imageUrl: String = "https://example.com/glucose-biscuits.jpg",
+    stockLevel: Int = 15,
+    shelfPosition: String = "A1",
+    nutritionInfo: com.aiken.vendingmachine.data.model.NutritionInfo = com.aiken.vendingmachine.data.model.NutritionInfo(
+        calories = 450,
+        ingredients = "Wheat Flour, Sugar, Glucose Syrup"
+    ),
+    weight: String = "200g",
+    tags: List<String> = listOf("glucose", "energy", "classic"),
+    isAvailable: Boolean = true,
+    brand: String = "Maliban"
+): Product {
+    return Product(
+        id = id,
+        name = name,
+        description = description,
+        price = price,
+        category = category,
+        imageUrl = imageUrl,
+        stockLevel = stockLevel,
+        shelfPosition = shelfPosition,
+        nutritionInfo = nutritionInfo,
+        weight = weight,
+        tags = tags,
+        isAvailable = isAvailable,
+        brand = brand
+    )
 }

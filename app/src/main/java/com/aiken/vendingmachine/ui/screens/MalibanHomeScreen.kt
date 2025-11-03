@@ -13,18 +13,21 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aiken.vendingmachine.ui.components.BiscuitCategoryFilterBar
 import com.aiken.vendingmachine.ui.components.BiscuitProductCard
 import com.aiken.vendingmachine.ui.components.BottomCartBar
 import com.aiken.vendingmachine.ui.components.VideoCarousel
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 import com.aiken.vendingmachine.ui.viewmodel.VendingViewModel
 import androidx.compose.runtime.collectAsState
+import com.aiken.vendingmachine.data.model.Product
 
 @Composable
 fun MalibanHomeScreen(
-    onProductClick: (com.aiken.vendingmachine.data.model.Product) -> Unit,
+    onProductClick: (Product) -> Unit,
     onCartClick: () -> Unit,
     viewModel: VendingViewModel = viewModel()
 ) {
@@ -87,5 +90,39 @@ fun MalibanHomeScreen(
                 }
             }
         }
+    }
+}
+
+// Preview Functions
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun MalibanHomeScreenPreview() {
+    VendingMachineTheme {
+        MalibanHomeScreen(
+            onProductClick = { _ -> },
+            onCartClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, device = "spec:width=1080px,height=1920px")
+@Composable
+private fun MalibanHomeScreenTabletPreview() {
+    VendingMachineTheme {
+        MalibanHomeScreen(
+            onProductClick = { _ -> },
+            onCartClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, device = "spec:width=411dp,height=891dp")
+@Composable
+private fun MalibanHomeScreenMobilePreview() {
+    VendingMachineTheme {
+        MalibanHomeScreen(
+            onProductClick = { _ -> },
+            onCartClick = { }
+        )
     }
 }

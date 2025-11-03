@@ -27,10 +27,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.aiken.vendingmachine.data.model.Product
 import com.aiken.vendingmachine.data.model.ProductCategory
+import com.aiken.vendingmachine.data.model.NutritionInfo
 import com.aiken.vendingmachine.ui.theme.*
 
 @Composable
@@ -172,4 +174,188 @@ fun getBiscuitCategoryColor(category: ProductCategory): androidx.compose.ui.grap
         ProductCategory.CHOCOLATE -> ChocolateColor
         ProductCategory.ALL -> Primary
     }
+}
+
+// Preview Functions
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardCreamBiscuitsPreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Vanilla Cream",
+                category = ProductCategory.CREAM_BISCUITS,
+                brand = "Maliban",
+                price = 1.75,
+                weight = "200g"
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardGlucosePreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Glucose Energy",
+                category = ProductCategory.GLUCOSE,
+                brand = "Maliban",
+                price = 1.50,
+                weight = "180g"
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardCookiesPreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Chocolate Chip Cookies",
+                category = ProductCategory.COOKIES,
+                brand = "Maliban",
+                price = 2.25,
+                weight = "150g"
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardCrackersPreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Cheese Crackers",
+                category = ProductCategory.CRACKERS,
+                brand = "Maliban",
+                price = 1.80,
+                weight = "120g"
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardWafersPreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Strawberry Wafers",
+                category = ProductCategory.WAFERS,
+                brand = "Maliban",
+                price = 2.00,
+                weight = "100g"
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardChocolatePreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Chocolate Biscuits",
+                category = ProductCategory.CHOCOLATE,
+                brand = "Maliban",
+                price = 2.50,
+                weight = "160g"
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardOutOfStockPreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Vanilla Cream",
+                category = ProductCategory.CREAM_BISCUITS,
+                brand = "Maliban",
+                price = 1.75,
+                weight = "200g",
+                stockLevel = 0,
+                isAvailable = false
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BiscuitProductCardLowStockPreview() {
+    VendingMachineTheme {
+        BiscuitProductCard(
+            product = createMockBiscuitProduct(
+                name = "Glucose Energy",
+                category = ProductCategory.GLUCOSE,
+                brand = "Maliban",
+                price = 1.50,
+                weight = "180g",
+                stockLevel = 2
+            ),
+            onProductClick = { },
+            onAddToCart = { }
+        )
+    }
+}
+
+// Helper function to create mock biscuit product for previews
+private fun createMockBiscuitProduct(
+    id: Int = 1,
+    name: String = "Biscuit Product",
+    description: String = "Delicious biscuits",
+    price: Double = 1.50,
+    category: ProductCategory = ProductCategory.CREAM_BISCUITS,
+    imageUrl: String = "https://example.com/biscuit.jpg",
+    stockLevel: Int = 15,
+    shelfPosition: String = "A1",
+    nutritionInfo: NutritionInfo = NutritionInfo(
+        calories = 450,
+        ingredients = "Wheat Flour, Sugar, Vegetable Oil"
+    ),
+    weight: String = "200g",
+    tags: List<String> = listOf("biscuit", "snack"),
+    isAvailable: Boolean = true,
+    brand: String = "Maliban"
+): Product {
+    return Product(
+        id = id,
+        name = name,
+        description = description,
+        price = price,
+        category = category,
+        imageUrl = imageUrl,
+        stockLevel = stockLevel,
+        shelfPosition = shelfPosition,
+        nutritionInfo = nutritionInfo,
+        weight = weight,
+        tags = tags,
+        isAvailable = isAvailable,
+        brand = brand
+    )
 }

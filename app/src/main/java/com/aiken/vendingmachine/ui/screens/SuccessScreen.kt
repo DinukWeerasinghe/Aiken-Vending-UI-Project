@@ -23,8 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aiken.vendingmachine.ui.theme.Success
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 import kotlinx.coroutines.delay
 
 @Composable
@@ -132,5 +134,57 @@ fun SuccessScreen(
                 )
             }
         }
+    }
+}
+
+// Preview Functions
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun SuccessScreenPreview() {
+    VendingMachineTheme {
+        SuccessScreen(
+            onDone = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, widthDp = 400, heightDp = 600)
+@Composable
+private fun SuccessScreenTabletPreview() {
+    VendingMachineTheme {
+        SuccessScreen(
+            onDone = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, widthDp = 320, heightDp = 480)
+@Composable
+private fun SuccessScreenMobilePreview() {
+    VendingMachineTheme {
+        SuccessScreen(
+            onDone = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, widthDp = 600, heightDp = 800)
+@Composable
+private fun SuccessScreenLargeScreenPreview() {
+    VendingMachineTheme {
+        SuccessScreen(
+            onDone = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun SuccessScreenAnimationPreview() {
+    VendingMachineTheme {
+        // This preview will show the animated checkmark
+        SuccessScreen(
+            onDone = { }
+        )
     }
 }

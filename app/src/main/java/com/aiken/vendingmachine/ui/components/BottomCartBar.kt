@@ -27,9 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aiken.vendingmachine.ui.theme.Primary
-import com.aiken.vendingmachine.ui.theme.Secondary
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 
 @Composable
 fun BottomCartBar(
@@ -73,7 +74,7 @@ fun BottomCartBar(
                         Badge {
                             Text(
                                 text = itemCount.toString(),
-                                style = MaterialTheme.typography.labelSmall
+                                style = MaterialTheme.typography.bodyLarge
                             )
                         }
                     }
@@ -82,7 +83,7 @@ fun BottomCartBar(
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
                     contentDescription = "Shopping cart",
-                    modifier = Modifier.size(32.dp),
+                    modifier = Modifier.size(50.dp),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
@@ -114,5 +115,54 @@ fun BottomCartBar(
                 )
             }
         }
+    }
+}
+
+// Preview Functions
+@Preview(showBackground = true)
+@Composable
+private fun BottomCartBarWithItemsPreview() {
+    VendingMachineTheme {
+        BottomCartBar(
+            itemCount = 3,
+            totalPrice = 12.50,
+            onCheckoutClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomCartBarEmptyPreview() {
+    VendingMachineTheme {
+        BottomCartBar(
+            itemCount = 0,
+            totalPrice = 0.0,
+            onCheckoutClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomCartBarSingleItemPreview() {
+    VendingMachineTheme {
+        BottomCartBar(
+            itemCount = 1,
+            totalPrice = 4.99,
+            onCheckoutClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomCartBarManyItemsPreview() {
+    VendingMachineTheme {
+        BottomCartBar(
+            itemCount = 15,
+            totalPrice = 47.25,
+            onCheckoutClick = { }
+        )
     }
 }

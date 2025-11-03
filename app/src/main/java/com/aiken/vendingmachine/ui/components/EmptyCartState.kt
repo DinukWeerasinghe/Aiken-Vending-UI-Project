@@ -18,7 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 
 @Composable
 fun EmptyCartState(
@@ -68,5 +70,46 @@ fun EmptyCartState(
                 style = MaterialTheme.typography.labelLarge
             )
         }
+    }
+}
+
+// Preview Functions
+@Preview(showBackground = true)
+@Composable
+private fun EmptyCartStatePreview() {
+    VendingMachineTheme {
+        EmptyCartState(
+            onStartShopping = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 400, heightDp = 600)
+@Composable
+private fun EmptyCartStateTabletPreview() {
+    VendingMachineTheme {
+        EmptyCartState(
+            onStartShopping = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 480)
+@Composable
+private fun EmptyCartStateMobilePreview() {
+    VendingMachineTheme {
+        EmptyCartState(
+            onStartShopping = { }
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 600, heightDp = 800)
+@Composable
+private fun EmptyCartStateLargeScreenPreview() {
+    VendingMachineTheme {
+        EmptyCartState(
+            onStartShopping = { }
+        )
     }
 }
