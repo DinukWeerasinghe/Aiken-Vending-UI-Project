@@ -57,7 +57,7 @@ fun MalibanHomeScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(768.dp) // 40% of 1920
+                    .height(600.dp) // 40% of 1920
             ) {
                 VideoCarousel(
                     promoSlides = uiState.promoSlides,

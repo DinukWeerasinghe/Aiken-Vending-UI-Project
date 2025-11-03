@@ -90,7 +90,7 @@ fun BottomCartBar(
 
             // Total price
             Text(
-                text = "Total: $${String.format("%.2f", totalPrice)}",
+                text = "Total: Rs ${String.format("%.2f", totalPrice)}",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )

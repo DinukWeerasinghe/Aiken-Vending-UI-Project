@@ -160,7 +160,7 @@ fun BiscuitProductDetailScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "$${product.price}",
+                        text = "Rs ${product.price}",
                         style = MaterialTheme.typography.displaySmall,
                         color = Primary
                     )
@@ -242,7 +242,7 @@ fun BiscuitProductDetailScreen(
                     ) {
                         Text(
                             text = if (product.stockLevel > 0) {
-                                "Add $quantity to Cart - $${String.format("%.2f", product.price * quantity)}"
+                                "Add $quantity to Cart - Rs ${String.format("%.2f", product.price * quantity)}"
                             } else {
                                 "Out of Stock"
                             },

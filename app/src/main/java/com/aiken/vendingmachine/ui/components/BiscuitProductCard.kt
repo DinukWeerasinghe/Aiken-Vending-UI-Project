@@ -123,7 +123,7 @@ fun BiscuitProductCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "$${product.price}",
+                    text = "Rs ${product.price}",
                     style = MaterialTheme.typography.titleMedium,
                     color = Primary,
                     fontWeight = FontWeight.Bold
