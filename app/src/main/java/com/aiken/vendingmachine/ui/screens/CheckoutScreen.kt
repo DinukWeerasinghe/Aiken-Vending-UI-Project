@@ -99,7 +99,7 @@ fun CheckoutScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("${item.quantity} × ${item.product.name}")
-                        Text("$${String.format("%.2f", item.product.price * item.quantity)}")
+                        Text("Rs ${String.format("%.2f", item.product.price * item.quantity)}")
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                 }
@@ -116,7 +116,7 @@ fun CheckoutScreen(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "$${String.format("%.2f", uiState.totalPrice)}",
+                        text = "Rs ${String.format("%.2f", uiState.totalPrice)}",
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
