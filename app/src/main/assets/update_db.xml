@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+   <!-- <version code="2">
+        <sql>ALTER TABLE Product ADD COLUMN category TEXT;</sql>
+    </version>
+
+    <version code="3">
+        <sql>CREATE TABLE IF NOT EXISTS Terminal(
+            tid INTEGER PRIMARY KEY AUTOINCREMENT,
+            terminalName TEXT,
+            location TEXT
+            );</sql>
+    </version>-->
+</updates>
