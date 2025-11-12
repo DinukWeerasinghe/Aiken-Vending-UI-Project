@@ -31,12 +31,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.aiken.vendingmachine.data.MockData
 import com.aiken.vendingmachine.data.model.CartItem
-import com.aiken.vendingmachine.data.model.Product
-import com.aiken.vendingmachine.data.model.ProductCategory
 import com.aiken.vendingmachine.ui.components.EmptyCartState
 import com.aiken.vendingmachine.ui.theme.VendingMachineTheme
 import com.aiken.vendingmachine.ui.viewmodel.VendingViewModel

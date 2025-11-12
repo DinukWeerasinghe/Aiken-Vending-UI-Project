@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.DexMergingTask
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -91,6 +93,9 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    implementation(files("libs/common-utils-debug-1.4.17.jar"))
+
 
 
 }

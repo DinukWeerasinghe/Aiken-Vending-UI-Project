@@ -16,5 +16,5 @@ data class Product(
     val productSize: String?, // e.g., "50g", "100g", "150g"
     val sellingPrice: Double,
     val productImages: String?, // local file path (image/video)
-    val slotNumber: Int // 1 to 60, corresponds to vending slot
+    val slotNumber: Int, // 1 to 60, corresponds to vending slot
 )
